@@ -1,0 +1,53 @@
+package numbers;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        // System starts
+        System.out.println("Welcome to Amazing Numbers!/n");
+        System.out.println("Supported requests:");
+        System.out.println("- enter a natural number to know its properties;");
+        System.out.println("- enter 0 to exit./n");
+        Scanner scanner = new Scanner(System.in);
+        long input = 0;
+        // System runs
+        boolean programRuns = true;
+        while (programRuns) {
+            System.out.print("Enter a request: ");
+            input = scanner.nextLong();
+            if (input == 0) {
+                programRuns = false;
+                break;
+            }
+            if (input < 1) {
+                System.out.println("The first parameter should be a natural number or zero.");
+            } else {
+                showProperties(input);
+            }
+        }
+    }
+    public static void showProperties(long input) {
+        boolean evenNumber = input % 2 == 0;
+        boolean oddNumber = !evenNumber;
+        boolean isDivisible = input % 7 == 0;
+        String inputAsString = String.valueOf(input);
+        boolean endsWith7 = inputAsString.endsWith("7");
+        boolean buzzNumber = isDivisible || endsWith7;
+        boolean duckNumber = inputAsString.contains("0");
+        boolean palindrome = true;
+        for (int i = 0; i <= (inputAsString.length() / 2); i++) {
+            if (inputAsString.charAt(i) != inputAsString.charAt(inputAsString.length() - (i + 1))) {
+                palindrome = false;
+                break;
+            }
+        }
+
+        System.out.println("Properties of " + input);
+        System.out.println("even: " + evenNumber);
+        System.out.println("odd: " + oddNumber);
+        System.out.println("buzz: " + buzzNumber);
+        System.out.println("duck: " + duckNumber);
+        System.out.println("palindromic: " + palindrome);
+    }
+}
