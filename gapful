@@ -38,60 +38,49 @@ public class Main {
                         break;
                     }
             }
-
-
         }
     }
-
-
-        // process methods
-        public static void printInstructions () {
-            System.out.println("Supported requests:");
-            System.out.println("- enter a natural number to know its properties;");
-            System.out.println("- enter two natural numbers to obtain the properties of the list:/n" +
-                    " * the first parameter represents a starting number;/n" +
-                    " * the second parameter shows how many consecutive numbers are to be processed;");
-            System.out.println("- separate the parameters with one space;");
-            System.out.println("- enter 0 to exit./n");
+    // process methods
+    public static void printInstructions () {
+        System.out.println("Supported requests:");
+        System.out.println("- enter a natural number to know its properties;");
+        System.out.println("- enter two natural numbers to obtain the properties of the list:/n" +
+                " * the first parameter represents a starting number;/n" +
+                " * the second parameter shows how many consecutive numbers are to be processed;");
+        System.out.println("- separate the parameters with one space;");
+        System.out.println("- enter 0 to exit./n");
+    }
+    public static void oneNumber (long input){
+        System.out.println("Properties of " + input);
+        System.out.println("even: " + isEven(input));
+        System.out.println("odd: " + isOdd(isEven(input)));
+        System.out.println("buzz: " + isBuzz(input));
+        System.out.println("duck: " + isDuck(input));
+        System.out.println("palindromic: " + isPalindrome(input));
+        System.out.println("gapful: " + isGapful(input));
+    }
+    public static void twoNumbers (long input1, long input2){
+        for (int i = 0; i < input2; i++) {
+            System.out.print((input1 + i) + " is ");
+            properties((long) input1 + i);
+            System.out.println("");
         }
-
-        public static void oneNumber (long input){
-            System.out.println("Properties of " + input);
-            System.out.println("even: " + isEven(input));
-            System.out.println("odd: " + isOdd(isEven(input)));
-            System.out.println("buzz: " + isBuzz(input));
-            System.out.println("duck: " + isDuck(input));
-            System.out.println("palindromic: " + isPalindrome(input));
-            System.out.println("gapful: " + isGapful(input));
-        }
-        public static void twoNumbers (long input1, long input2){
-            for (int i = 0; i < input2; i++) {
-                System.out.print((input1 + i) + " is ");
-                properties((long) input1 + i);
-                System.out.println("");
-            }
-        }
-
-
+    }
     // check methods
     public static boolean isEven(long number) {
         return number % 2 == 0;
     }
-
     public static boolean isOdd(boolean even) {
         return !even;
     }
-
     public static boolean isBuzz(long number) {
         boolean isDivisible = number % 7 == 0;
         boolean endsWith7 = String.valueOf(number).endsWith("7");
         return isDivisible || endsWith7;
     }
-
     public static boolean isDuck(long number) {
         return String.valueOf(number).contains("0");
     }
-
     public static boolean isPalindrome(long number) {
         String inputAsString = String.valueOf(number);
         boolean palindrome = true;
@@ -103,7 +92,6 @@ public class Main {
         }
         return palindrome;
     }
-
     public static boolean isGapful(long number) {
         String inputAsString = String.valueOf(number);
         String firstNumberChar = Character.toString(inputAsString.charAt(0));
@@ -112,7 +100,6 @@ public class Main {
         int concatInt = Integer.parseInt(concat);
         return String.valueOf(number).length() >= 3 && number % concatInt == 0;
     }
-
     public static void properties(long number) {
         List<String> whichProperties = new ArrayList<>();
         if (isEven(number)) {
