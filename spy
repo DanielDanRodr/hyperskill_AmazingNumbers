@@ -37,7 +37,11 @@ public class Main {
                         System.out.println("The second parameter should be a natural number.");
                         printInstructions();
                         break;
-                    } else {
+                    } else if (Long.parseLong(inputString[0]) == 0 | Long.parseLong(inputString[1]) == 0) {
+                        programRuns = false;
+                        break;
+                    }
+                    else {
                         twoNumbers(Long.parseLong(inputString[0]), Long.parseLong(inputString[1]));
                     }
                     break;
@@ -49,6 +53,9 @@ public class Main {
                     } else if (Long.parseLong(inputString[1]) <= 0) {
                         System.out.println("The second parameter should be a natural number.");
                         printInstructions();
+                        break;
+                    } else if (Long.parseLong(inputString[0]) == 0 | Long.parseLong(inputString[1]) == 0) {
+                        programRuns = false;
                         break;
                     } else if (!properties.contains(inputString[2])) {
                         System.out.println("The property [" + inputString[2] + "] is wrong.\n" +
