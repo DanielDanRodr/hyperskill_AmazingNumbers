@@ -37,7 +37,7 @@ public class Main {
                         System.out.println("The second parameter should be a natural number.");
                         printInstructions();
                         break;
-                    } else if (Long.parseLong(inputString[0]) == 0 | Long.parseLong(inputString[1]) == 0) {
+                    } else if (Long.parseLong(inputString[0]) == 0) {
                         programRuns = false;
                         break;
                     }
@@ -54,15 +54,15 @@ public class Main {
                         System.out.println("The second parameter should be a natural number.");
                         printInstructions();
                         break;
-                    } else if (Long.parseLong(inputString[0]) == 0 | Long.parseLong(inputString[1]) == 0) {
+                    } else if (Long.parseLong(inputString[0]) == 0) {
                         programRuns = false;
                         break;
-                    } else if (!properties.contains(inputString[2])) {
+                    } else if (!properties.contains(inputString[2].toUpperCase())) {
                         System.out.println("The property [" + inputString[2] + "] is wrong.\n" +
                                 "Available properties: [EVEN, ODD, BUZZ, DUCK, PALINDROMIC, GAPFUL, SPY]");
                         break;
                     } else {
-                        threeElements(Long.parseLong(inputString[0]), Long.parseLong(inputString[1]), inputString[2]);
+                        threeElements(Long.parseLong(inputString[0]), Long.parseLong(inputString[1]), inputString[2].toLowerCase());
                     }
                     break;
             }
@@ -92,7 +92,7 @@ public class Main {
         int counter = 0;
         for (int i = 0; counter < input2; i++) {
             List<String> list = properties(input1 + i);
-            if (list.contains(input3.toLowerCase())) {
+            if (list.contains(input3)) {
                 counter++;
                 System.out.print((input1 + i) + " is ");
                 System.out.print(String.join(", ", properties(input1 + i)));
@@ -121,15 +121,8 @@ public class Main {
     }
 
     public static boolean isPalindrome(long number) {
-        String inputAsString = String.valueOf(number);
-        boolean palindrome = true;
-        for (int i = 0; i <= (inputAsString.length() / 2); i++) {
-            if (inputAsString.charAt(i) != inputAsString.charAt(inputAsString.length() - (i + 1))) {
-                palindrome = false;
-                break;
-            }
-        }
-        return palindrome;
+        StringBuilder stringReversed = new StringBuilder(String.valueOf(number)).reverse();
+        return String.valueOf(number).equals(stringReversed.toString());
     }
 
     public static boolean isGapful(long number) {
@@ -142,15 +135,15 @@ public class Main {
     }
 
     public static boolean isSpy(long number) {
-        String inputAsString = String.valueOf(number);
-        long sum = 0;
-        long product = 1;
-        for (int i = 0; i < inputAsString.length(); i++) {
-            sum += inputAsString.charAt(i);
-            product = product * inputAsString.charAt(i);
+        String numberAsString = String.valueOf(number);
+        char[] numberAsArray = numberAsString.toCharArray();
+        int sum = 0;
+        int product = 1;
+        for (int i = 0; i < numberAsArray.length; i++) {
+            sum += Character.getNumericValue(numberAsArray[i]);
+            product *= Character.getNumericValue(numberAsArray[i]);
         }
         return sum == product;
-
     }
 
     public static List<String> properties(long number) {
@@ -168,7 +161,7 @@ public class Main {
             whichProperties.add("duck");
         }
         if (isPalindrome(number)) {
-            whichProperties.add("palindrome");
+            whichProperties.add("palindromic");
         }
         if (isGapful(number)) {
             whichProperties.add("gapful");
